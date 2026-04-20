@@ -29,7 +29,7 @@ const schema = yup.object().shape({
     .required('Password is required')
     .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
     .matches(/[0-9]/, 'Password must contain at least one number'),
-  role: yup.string().oneOf(['TENANT', 'PROPERTY_OWNER'], 'Select a valid role').required('Role is required'),
+  role: yup.string().oneOf(['TENANT', 'PROPERTY_OWNER', 'ADMIN', 'LEASE_MANAGER', 'DISPUTE_MANAGER'], 'Select a valid role').required('Role is required'),
 });
 
 type FormData = yup.InferType<typeof schema>;
@@ -142,6 +142,9 @@ export const Signup: React.FC = () => {
             >
               <MenuItem value="TENANT">Tenant (Looking to Rent)</MenuItem>
               <MenuItem value="PROPERTY_OWNER">Property Owner (Listing Spaces)</MenuItem>
+              <MenuItem value="ADMIN">Admin (System Administrator)</MenuItem>
+              <MenuItem value="LEASE_MANAGER">Lease Manager</MenuItem>
+              <MenuItem value="DISPUTE_MANAGER">Dispute Manager</MenuItem>
             </TextField>
           </Box>
           <Box sx={{ mb: 4 }}>
