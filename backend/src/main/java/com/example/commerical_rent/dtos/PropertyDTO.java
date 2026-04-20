@@ -31,7 +31,7 @@ public class PropertyDTO {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

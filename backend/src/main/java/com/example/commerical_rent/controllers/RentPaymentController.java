@@ -27,7 +27,7 @@ public class RentPaymentController {
     public ResponseEntity<RentPaymentDTO> getRentPaymentById(@PathVariable Long id) {
         Optional<RentPaymentDTO> rentPayment = rentPaymentService.getRentPaymentById(id);
         return rentPayment.map(ResponseEntity::ok)
-                          .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -37,10 +37,11 @@ public class RentPaymentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RentPaymentDTO> updateRentPayment(@PathVariable Long id, @RequestBody RentPaymentDTO rentPaymentDTO) {
+    public ResponseEntity<RentPaymentDTO> updateRentPayment(@PathVariable Long id,
+            @RequestBody RentPaymentDTO rentPaymentDTO) {
         Optional<RentPaymentDTO> updatedRentPayment = rentPaymentService.updateRentPayment(id, rentPaymentDTO);
         return updatedRentPayment.map(ResponseEntity::ok)
-                                 .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

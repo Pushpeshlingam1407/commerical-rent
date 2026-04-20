@@ -45,7 +45,7 @@ public class Dispute {
         createdAt = LocalDateTime.now();
     }
 
-    // Constructors
+    
     public Dispute() {
     }
 
@@ -56,7 +56,7 @@ public class Dispute {
         this.disputeStatus = disputeStatus;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

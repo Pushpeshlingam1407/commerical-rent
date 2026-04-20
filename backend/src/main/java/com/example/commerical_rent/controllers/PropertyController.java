@@ -27,7 +27,7 @@ public class PropertyController {
     public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id) {
         Optional<PropertyDTO> property = propertyService.getPropertyById(id);
         return property.map(ResponseEntity::ok)
-                       .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class PropertyController {
     public ResponseEntity<PropertyDTO> updateProperty(@PathVariable Long id, @RequestBody PropertyDTO propertyDTO) {
         Optional<PropertyDTO> updatedProperty = propertyService.updateProperty(id, propertyDTO);
         return updatedProperty.map(ResponseEntity::ok)
-                              .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

@@ -16,7 +16,7 @@ public class RentPaymentDTO {
     private String referenceId;
     private LocalDateTime createdAt;
 
-    // Constructors
+    
     public RentPaymentDTO() {
     }
 
@@ -34,7 +34,7 @@ public class RentPaymentDTO {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }
