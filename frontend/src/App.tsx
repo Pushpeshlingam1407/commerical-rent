@@ -22,10 +22,18 @@ import {
   TenantBrowse,
   TenantPayments,
   LeaseManagerDashboard,
-  DisputeManagerDashboard,
   AdminLeases,
   AdminDisputes,
 } from "./pages/Dashboards";
+import { TenantDisputes } from "./pages/tenant/TenantDisputes";
+import { OwnerDisputes } from "./pages/owner/OwnerDisputes";
+import { LeaseApprovals } from "./pages/manager/LeaseApprovals";
+import { LeaseAnalytics } from "./pages/manager/LeaseAnalytics";
+import { ActiveLeases } from "./pages/manager/ActiveLeases";
+import { LeaseDetails } from "./pages/manager/LeaseDetails";
+import { DisputeDashboard } from "./pages/manager/DisputeDashboard";
+import { PendingDisputes } from "./pages/manager/PendingDisputes";
+import { ResolvedDisputes } from "./pages/manager/ResolvedDisputes";
 
 const theme = createTheme({
   typography: {
@@ -95,21 +103,35 @@ const AppRoutes = () => {
         <Route element={<ProtectedRoute allowedRoles={["PROPERTY_OWNER"]} />}>
           <Route path="/owner" element={<OwnerDashboard />} />
           <Route path="/owner/properties" element={<OwnerProperties />} />
+          <Route path="/owner/disputes" element={<OwnerDisputes />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["TENANT"]} />}>
           <Route path="/tenant" element={<TenantDashboard />} />
           <Route path="/tenant/browse" element={<TenantBrowse />} />
           <Route path="/tenant/payments" element={<TenantPayments />} />
+          <Route path="/tenant/disputes" element={<TenantDisputes />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["LEASE_MANAGER"]} />}>
           <Route path="/manager/leases" element={<LeaseManagerDashboard />} />
+          <Route path="/manager/approvals" element={<LeaseApprovals />} />
+          <Route path="/manager/active" element={<ActiveLeases />} />
+          <Route path="/manager/analytics" element={<LeaseAnalytics />} />
+          <Route path="/manager/lease/:id" element={<LeaseDetails />} />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["DISPUTE_MANAGER"]} />}>
           <Route
             path="/manager/disputes"
-            element={<DisputeManagerDashboard />}
+            element={<DisputeDashboard />}
+          />
+          <Route
+            path="/manager/pending"
+            element={<PendingDisputes />}
+          />
+          <Route
+            path="/manager/resolved"
+            element={<ResolvedDisputes />}
           />
         </Route>
       </Route>

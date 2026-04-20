@@ -1,20 +1,12 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Paper,
-  CircularProgress,
-  Alert,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useAuth } from "../../context/AuthContext";
-import api from "../../utils/api";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Box, Button, TextField, Typography, Paper, CircularProgress } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
+import api from '../../utils/api';
 
 const schema = yup.object().shape({
   email: yup.string()
@@ -24,7 +16,6 @@ const schema = yup.object().shape({
   password: yup.string()
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters'),
-  email: yup.string().email("Invalid email").required("Email is required"),
 });
 
 type FormData = yup.InferType<typeof schema>;
@@ -54,33 +45,6 @@ export const Login: React.FC = () => {
     } catch (err: any) {
       const errorMsg = err.response?.data?.error || 'Invalid email or password. Please try again.';
       toast.error(errorMsg);
-      // The backend has no password field or /auth/login endpoint.
-      // We fetch all users and find the one matching the given email.
-      const res = await api.get("/users");
-      const users: any[] = res.data;
-      const found = users.find(
-        (u: any) => u.email.toLowerCase() === data.email.toLowerCase()
-      );
-
-      if (!found) {
-        toast.error("No account found with that email. Please sign up first.");
-        return;
-      }
-
-      // Generate a simple session token from user data
-      const mockToken = btoa(`${found.id}:${found.email}:${found.role}`);
-      const userData = {
-        id: found.id,
-        name: found.name,
-        email: found.email,
-        role: found.role,
-      };
-
-      login(mockToken, userData);
-      toast.success(`Welcome back, ${found.name}!`);
-      navigate("/");
-    } catch (err: any) {
-      toast.error("Failed to connect to server. Make sure the backend is running.");
     } finally {
       setLoading(false);
     }
@@ -109,30 +73,6 @@ export const Login: React.FC = () => {
             Commercial Property Leasing Made Easy
           </Typography>
           <Typography variant="h4" sx={{ fontWeight: 700, color: 'var(--primary)', mb: 1 }}>
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        bgcolor: "var(--background)",
-      }}
-    >
-      <Paper
-        elevation={0}
-        className="glass-panel hover-lift fade-in"
-        sx={{
-          p: 5,
-          maxWidth: 450,
-          width: "100%",
-          borderRadius: "var(--radius-xl)",
-        }}
-      >
-        <Box sx={{ textAlign: "center", mb: 4 }}>
-          <Typography
-            variant="h4"
-            sx={{ fontWeight: 700, color: "var(--primary)", mb: 1 }}
-          >
             Welcome Back
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -140,24 +80,29 @@ export const Login: React.FC = () => {
           </Typography>
         </Box>
 
-        <Alert severity="info" sx={{ mb: 3, borderRadius: "var(--radius-md)" }}>
-          Sign in using the email you registered with.
-        </Alert>
-
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box sx={{ mb: 4 }}>
+          <Box sx={{ mb: 3 }}>
             <TextField
               fullWidth
               label="Email Address"
+              type="email"
               variant="outlined"
-              {...register("email")}
+              {...register('email')}
               error={!!errors.email}
               helperText={errors.email?.message}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "var(--radius-md)",
-                },
-              }}
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 'var(--radius-md)' } }}
+            />
+          </Box>
+          <Box sx={{ mb: 4 }}>
+            <TextField
+              fullWidth
+              label="Password"
+              type="password"
+              variant="outlined"
+              {...register('password')}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 'var(--radius-md)' } }}
             />
           </Box>
           <Button
@@ -167,29 +112,21 @@ export const Login: React.FC = () => {
             disabled={loading}
             sx={{
               py: 1.5,
-              borderRadius: "var(--radius-md)",
-              bgcolor: "var(--primary)",
-              textTransform: "none",
-              fontSize: "1rem",
+              borderRadius: 'var(--radius-md)',
+              textTransform: 'none',
+              fontSize: '1rem',
               fontWeight: 600,
-              boxShadow: "var(--shadow-md)",
-              "&:hover": {
-                bgcolor: "var(--primary-hover)",
-              },
+              boxShadow: 'var(--shadow-md)',
             }}
           >
-            {loading ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              "Sign In"
-            )}
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
           </Button>
         </form>
 
-        <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Box sx={{ textAlign: 'center', mt: 4 }}>
           <Typography variant="body2" color="text.secondary">
-            Don't have an account?{" "}
-            <Link to="/signup" style={{ fontWeight: 600 }}>
+            Don't have an account?{' '}
+            <Link to="/signup" style={{ fontWeight: 600, color: 'var(--primary)' }}>
               Sign up here
             </Link>
           </Typography>

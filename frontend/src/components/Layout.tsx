@@ -27,6 +27,8 @@ import {
   People,
   Logout,
   Person,
+  TrendingUp,
+  CheckCircle,
 } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 
@@ -76,6 +78,7 @@ export const Layout: React.FC = () => {
             icon: <HomeWork />,
             path: "/owner/properties",
           },
+          { text: "Property Disputes", icon: <Gavel />, path: "/owner/disputes" },
         ];
       case "TENANT":
         return [
@@ -86,11 +89,21 @@ export const Layout: React.FC = () => {
             path: "/tenant/browse",
           },
           { text: "My Payments", icon: <Payment />, path: "/tenant/payments" },
+          { text: "My Disputes", icon: <Gavel />, path: "/tenant/disputes" },
         ];
       case "LEASE_MANAGER":
-        return [{ text: "Lease Approvals", icon: <Description />, path: "/" }];
+        return [
+          { text: "Dashboard", icon: <Dashboard />, path: "/manager/leases" },
+          { text: "Lease Approvals", icon: <Description />, path: "/manager/approvals" },
+          { text: "Active Leases", icon: <HomeWork />, path: "/manager/active" },
+          { text: "Analytics", icon: <TrendingUp />, path: "/manager/analytics" },
+        ];
       case "DISPUTE_MANAGER":
-        return [{ text: "Disputes", icon: <Gavel />, path: "/" }];
+        return [
+          { text: "Dashboard", icon: <Dashboard />, path: "/manager/disputes" },
+          { text: "Pending Disputes", icon: <Gavel />, path: "/manager/pending" },
+          { text: "Resolved Disputes", icon: <CheckCircle />, path: "/manager/resolved" },
+        ];
       default:
         return [];
     }
@@ -108,12 +121,6 @@ export const Layout: React.FC = () => {
             Commercial Leasing Platform
           </Typography>
         </Box>
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 700, color: "var(--primary)" }}
-        >
-          RentFlow
-        </Typography>
       </Toolbar>
       <Divider />
       <List sx={{ px: 2, flexGrow: 1 }}>
@@ -139,6 +146,7 @@ export const Layout: React.FC = () => {
                 {item.icon}
               </ListItemIcon>
               <ListItemText
+                primary={item.text}
                 slotProps={{ primary: { sx: { fontWeight: 500 } } }}
               />
             </ListItemButton>
