@@ -1,17 +1,36 @@
 package com.example.commerical_rent.dtos;
 
-import com.example.commerical_rent.enums.PropertyStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.example.commerical_rent.enums.PropertyStatus;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class PropertyDTO {
     private Long id;
+    
+    @NotBlank(message = "Property name is required")
     private String propertyName;
+    
+    @NotBlank(message = "Location is required")
     private String location;
+    
+    @NotBlank(message = "Property type is required")
     private String propertyType;
+    
+    @NotNull(message = "Monthly rent amount is required")
+    @Positive(message = "Monthly rent amount must be positive")
     private BigDecimal monthlyRentAmount;
-    private Long ownerId; // Reference to User ID
+    
+    @NotNull(message = "Owner ID is required")
+    private Long ownerId;
+    
+    @NotNull(message = "Availability status is required")
     private PropertyStatus availabilityStatus;
+    
     private LocalDateTime createdAt;
 
     
