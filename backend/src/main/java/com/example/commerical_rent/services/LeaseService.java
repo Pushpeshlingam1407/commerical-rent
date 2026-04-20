@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.commerical_rent.dtos.LeaseDto;
+import com.example.commerical_rent.dtos.LeaseDTO;
 import com.example.commerical_rent.entity.LeaseAgreement;
 import com.example.commerical_rent.enums.LeaseStatus;
 import com.example.commerical_rent.repository.LeaseRepository;
@@ -18,7 +18,7 @@ public class LeaseService {
     private LeaseRepository leaseRepository;
     
     // Create a new lease agreement
-    public LeaseAgreement createLease(LeaseDto leaseDto) {
+    public LeaseAgreement createLease(LeaseDTO leaseDto) {
         LeaseAgreement lease = new LeaseAgreement();
         lease.setProperty(leaseDto.getProperty());
         lease.setTenant(leaseDto.getTenant());
@@ -63,7 +63,7 @@ public class LeaseService {
     }
     
     // Update lease
-    public LeaseAgreement updateLease(Long id, LeaseDto leaseDto) {
+    public LeaseAgreement updateLease(Long id, LeaseDTO leaseDto) {
         Optional<LeaseAgreement> existingLease = leaseRepository.findById(id);
         
         if (existingLease.isPresent()) {

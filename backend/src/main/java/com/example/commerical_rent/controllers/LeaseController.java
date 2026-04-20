@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.commerical_rent.dtos.LeaseDto;
+import com.example.commerical_rent.dtos.LeaseDTO;
 import com.example.commerical_rent.entity.LeaseAgreement;
 import com.example.commerical_rent.enums.LeaseStatus;
 import com.example.commerical_rent.services.LeaseService;
@@ -30,7 +30,7 @@ public class LeaseController {
     
     // Create a new lease
     @PostMapping
-    public ResponseEntity<LeaseAgreement> createLease(@RequestBody LeaseDto leaseDto) {
+    public ResponseEntity<LeaseAgreement> createLease(@RequestBody LeaseDTO leaseDto) {
         try {
             LeaseAgreement newLease = leaseService.createLease(leaseDto);
             return new ResponseEntity<>(newLease, HttpStatus.CREATED);
@@ -88,7 +88,7 @@ public class LeaseController {
     
     // Update lease
     @PutMapping("/{id}")
-    public ResponseEntity<LeaseAgreement> updateLease(@PathVariable Long id, @RequestBody LeaseDto leaseDto) {
+    public ResponseEntity<LeaseAgreement> updateLease(@PathVariable Long id, @RequestBody LeaseDTO leaseDto) {
         try {
             LeaseAgreement updatedLease = leaseService.updateLease(id, leaseDto);
             
