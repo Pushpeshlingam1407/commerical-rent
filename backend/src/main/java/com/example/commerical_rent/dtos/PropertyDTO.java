@@ -14,7 +14,7 @@ public class PropertyDTO {
     private PropertyStatus availabilityStatus;
     private LocalDateTime createdAt;
 
-    // Constructors
+    
     public PropertyDTO() {
     }
 
