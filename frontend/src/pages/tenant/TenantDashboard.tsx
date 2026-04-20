@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper, Card, CardContent, Chip, Button, CircularProgress, Alert } from '@mui/material';
-import { Receipt, CheckCircle, AttachMoney, CreditCard } from '@mui/icons-material';
+import { Receipt, CheckCircle, AttachMoney, CreditCard, Gavel } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
@@ -34,7 +34,9 @@ export const TenantDashboard: React.FC = () => {
         api.get('/rent-payments')
       ]);
 
-      const tenantLeases = leasesRes.data.filter((l: any) => l.tenantId === user.id);
+      const tenantLeases = leasesRes.data.filter((l: any) => 
+        l.tenant === user?.email && (l.leaseStatus === 'APPROVED' || l.leaseStatus === 'ACTIVE')
+      );
       const tenantPayments = paymentsRes.data.filter((p: any) => 
         tenantLeases.some((l: any) => l.id === p.leaseAgreementId)
       );
@@ -119,7 +121,17 @@ export const TenantDashboard: React.FC = () => {
 
       {/* Active Leases */}
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>Active Leases</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>Active Leases</Typography>
+          <Button 
+            startIcon={<Gavel />}
+            variant="outlined"
+            size="small"
+            onClick={() => navigate('/tenant/disputes')}
+          >
+            View Disputes
+          </Button>
+        </Box>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
             <CircularProgress />

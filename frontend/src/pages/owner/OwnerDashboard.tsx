@@ -3,7 +3,7 @@ import {
   Box, Paper, Typography, Button, Card, CardContent,
   Chip, CircularProgress, Alert
 } from '@mui/material';
-import { Add, TrendingUp, AttachMoney, Warning } from '@mui/icons-material';
+import { Add, TrendingUp, AttachMoney, Warning, Gavel } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
@@ -39,7 +39,8 @@ export const OwnerDashboard: React.FC = () => {
 
       const ownerProps = propsRes.data.filter((p: any) => p.ownerId === user.id);
       const ownerLeases = leasesRes.data.filter((l: any) =>
-        ownerProps.some((p: any) => p.id === l.propertyId)
+        ownerProps.some((p: any) => p.propertyName === l.property) && 
+        (l.leaseStatus === 'APPROVED' || l.leaseStatus === 'ACTIVE')
       );
       const ownerPayments = paymentsRes.data.filter((payment: any) =>
         ownerLeases.some((l: any) => l.id === payment.leaseAgreementId)
@@ -144,7 +145,17 @@ export const OwnerDashboard: React.FC = () => {
 
       {/* Recent Properties */}
       <Box>
-        <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>Recent Properties</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>Recent Properties</Typography>
+          <Button 
+            startIcon={<Gavel />}
+            variant="outlined"
+            size="small"
+            onClick={() => navigate('/owner/disputes')}
+          >
+            View Disputes
+          </Button>
+        </Box>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
             <CircularProgress />

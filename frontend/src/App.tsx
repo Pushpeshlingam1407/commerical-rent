@@ -25,6 +25,8 @@ import {
   AdminLeases,
   AdminDisputes,
 } from "./pages/Dashboards";
+import { TenantDisputes } from "./pages/tenant/TenantDisputes";
+import { OwnerDisputes } from "./pages/owner/OwnerDisputes";
 import { LeaseApprovals } from "./pages/manager/LeaseApprovals";
 import { LeaseAnalytics } from "./pages/manager/LeaseAnalytics";
 import { ActiveLeases } from "./pages/manager/ActiveLeases";
@@ -101,12 +103,14 @@ const AppRoutes = () => {
         <Route element={<ProtectedRoute allowedRoles={["PROPERTY_OWNER"]} />}>
           <Route path="/owner" element={<OwnerDashboard />} />
           <Route path="/owner/properties" element={<OwnerProperties />} />
+          <Route path="/owner/disputes" element={<OwnerDisputes />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["TENANT"]} />}>
           <Route path="/tenant" element={<TenantDashboard />} />
           <Route path="/tenant/browse" element={<TenantBrowse />} />
           <Route path="/tenant/payments" element={<TenantPayments />} />
+          <Route path="/tenant/disputes" element={<TenantDisputes />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["LEASE_MANAGER"]} />}>

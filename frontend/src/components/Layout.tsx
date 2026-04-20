@@ -78,6 +78,7 @@ export const Layout: React.FC = () => {
             icon: <HomeWork />,
             path: "/owner/properties",
           },
+          { text: "Property Disputes", icon: <Gavel />, path: "/owner/disputes" },
         ];
       case "TENANT":
         return [
@@ -88,6 +89,7 @@ export const Layout: React.FC = () => {
             path: "/tenant/browse",
           },
           { text: "My Payments", icon: <Payment />, path: "/tenant/payments" },
+          { text: "My Disputes", icon: <Gavel />, path: "/tenant/disputes" },
         ];
       case "LEASE_MANAGER":
         return [

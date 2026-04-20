@@ -5,6 +5,8 @@ import { OwnerProperties } from './owner/OwnerProperties';
 import { TenantDashboard } from './tenant/TenantDashboard';
 import { TenantBrowse } from './tenant/TenantBrowse';
 import { TenantPayments } from './tenant/TenantPayments';
+import { AdminLeases as AdminLeasesPage } from './admin/AdminLeases';
+import { AdminDisputes as AdminDisputesPage } from './admin/AdminDisputes';
 
 const PlaceholderDashboard: React.FC<{ title: string; desc: string }> = ({ title, desc }) => (
   <Box className="fade-in">
@@ -25,8 +27,8 @@ const PlaceholderDashboard: React.FC<{ title: string; desc: string }> = ({ title
 // Export placeholder components
 export const LeaseManagerDashboard = () => <PlaceholderDashboard title="Lease Approvals" desc="Review and approve lease requests." />;
 export const DisputeManagerDashboard = () => <PlaceholderDashboard title="Dispute Resolution" desc="Manage and resolve tenant/owner disputes." />;
-export const AdminLeases = () => <PlaceholderDashboard title="All Leases" desc="System-wide lease agreements." />;
-export const AdminDisputes = () => <PlaceholderDashboard title="All Disputes" desc="System-wide disputes." />;
+export const AdminLeases = AdminLeasesPage;
+export const AdminDisputes = AdminDisputesPage;
 
 // Export actual dashboard components
 export { OwnerDashboard, OwnerProperties, TenantDashboard, TenantBrowse, TenantPayments };
