@@ -15,14 +15,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../utils/api";
 
+// Backend User entity has: name, email, phoneNumber, role — NO password field
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
   phoneNumber: yup.string().required("Phone number is required"),
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
   role: yup
     .string()
     .oneOf(["TENANT", "PROPERTY_OWNER"], "Select a valid role")
@@ -49,11 +46,22 @@ export const Signup: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
-      await api.post("/users", data);
+      // Only send the fields the backend User entity accepts
+      const payload = {
+        name: data.name,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        role: data.role,
+      };
+      await api.post("/users", payload);
       toast.success("Registration successful! Please sign in.");
       navigate("/login");
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Registration failed.");
+      const msg =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        "Registration failed. Email or phone may already be taken.";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -139,7 +147,7 @@ export const Signup: React.FC = () => {
               }}
             />
           </Box>
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 4 }}>
             <TextField
               fullWidth
               select
@@ -160,22 +168,6 @@ export const Signup: React.FC = () => {
                 Property Owner (Listing Spaces)
               </MenuItem>
             </TextField>
-          </Box>
-          <Box sx={{ mb: 4 }}>
-            <TextField
-              fullWidth
-              label="Password"
-              type="password"
-              variant="outlined"
-              {...register("password")}
-              error={!!errors.password}
-              helperText={errors.password?.message}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "var(--radius-md)",
-                },
-              }}
-            />
           </Box>
           <Button
             type="submit"

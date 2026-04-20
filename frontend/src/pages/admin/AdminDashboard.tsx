@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Paper, CircularProgress } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { People, HomeWork, Description, Gavel } from "@mui/icons-material";
+import { StatCard } from "../../components/StatCard";
 import api from "../../utils/api";
 
 export const AdminDashboard: React.FC = () => {
@@ -10,7 +11,6 @@ export const AdminDashboard: React.FC = () => {
     leases: 0,
     disputes: 0,
   });
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -30,53 +30,10 @@ export const AdminDashboard: React.FC = () => {
         });
       } catch (error) {
         console.error("Failed to load stats", error);
-      } finally {
-        setLoading(false);
       }
     };
-
     fetchStats();
   }, []);
-
-  const StatCard = ({ title, value, icon, color }: any) => (
-    <Paper
-      elevation={0}
-      className="hover-lift"
-      sx={{
-        p: 3,
-        borderRadius: "var(--radius-xl)",
-        display: "flex",
-        alignItems: "center",
-        border: "1px solid var(--border)",
-      }}
-    >
-      <Box
-        sx={{
-          p: 2,
-          borderRadius: "var(--radius-lg)",
-          bgcolor: `${color}15`,
-          color: color,
-          mr: 3,
-        }}
-      >
-        {icon}
-      </Box>
-      <Box>
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: 700, color: "var(--text-main)" }}
-        >
-          {loading ? <CircularProgress size={24} /> : value}
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{ color: "var(--text-muted)", fontWeight: 500 }}
-        >
-          {title}
-        </Typography>
-      </Box>
-    </Paper>
-  );
 
   return (
     <Box className="fade-in">

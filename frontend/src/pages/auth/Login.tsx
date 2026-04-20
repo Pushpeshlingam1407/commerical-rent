@@ -9,6 +9,7 @@ import {
   Typography,
   Paper,
   CircularProgress,
+  Alert,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,7 +18,6 @@ import api from "../../utils/api";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup.string().required("Password is required"),
 });
 
 type FormData = yup.InferType<typeof schema>;
@@ -38,23 +38,33 @@ export const Login: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
-      const response = await api.post("/auth/login", data);
-      const token = response.data.token || response.data;
-      const user = response.data.user || {
-        id: 1,
-        name: data.email.split("@")[0],
-        email: data.email,
-        role: response.data.role || "TENANT",
+      // The backend has no password field or /auth/login endpoint.
+      // We fetch all users and find the one matching the given email.
+      const res = await api.get("/users");
+      const users: any[] = res.data;
+      const found = users.find(
+        (u: any) => u.email.toLowerCase() === data.email.toLowerCase()
+      );
+
+      if (!found) {
+        toast.error("No account found with that email. Please sign up first.");
+        return;
+      }
+
+      // Generate a simple session token from user data
+      const mockToken = btoa(`${found.id}:${found.email}:${found.role}`);
+      const userData = {
+        id: found.id,
+        name: found.name,
+        email: found.email,
+        role: found.role,
       };
 
-      login(token, user);
-      toast.success("Login successful!");
+      login(mockToken, userData);
+      toast.success(`Welcome back, ${found.name}!`);
       navigate("/");
     } catch (err: any) {
-      toast.error(
-        err.response?.data?.message ||
-          "Login failed. Please check your credentials.",
-      );
+      toast.error("Failed to connect to server. Make sure the backend is running.");
     } finally {
       setLoading(false);
     }
@@ -92,8 +102,12 @@ export const Login: React.FC = () => {
           </Typography>
         </Box>
 
+        <Alert severity="info" sx={{ mb: 3, borderRadius: "var(--radius-md)" }}>
+          Sign in using the email you registered with.
+        </Alert>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 4 }}>
             <TextField
               fullWidth
               label="Email Address"
@@ -101,22 +115,6 @@ export const Login: React.FC = () => {
               {...register("email")}
               error={!!errors.email}
               helperText={errors.email?.message}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "var(--radius-md)",
-                },
-              }}
-            />
-          </Box>
-          <Box sx={{ mb: 4 }}>
-            <TextField
-              fullWidth
-              label="Password"
-              type="password"
-              variant="outlined"
-              {...register("password")}
-              error={!!errors.password}
-              helperText={errors.password?.message}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "var(--radius-md)",
