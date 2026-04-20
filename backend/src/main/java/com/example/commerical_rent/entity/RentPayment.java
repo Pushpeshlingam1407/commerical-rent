@@ -48,7 +48,7 @@ public class RentPayment {
 
     
 
-    // Constructors
+    
     public RentPayment() {
     }
 
@@ -61,7 +61,7 @@ public class RentPayment {
         this.penaltyAmount = BigDecimal.ZERO;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

@@ -18,7 +18,7 @@ public class LeaseDTO {
     private LocalDateTime createdAt;
     private String approvedBy;
 
-    // Constructors
+    
     public LeaseDTO() {
     }
 
@@ -34,7 +34,7 @@ public class LeaseDTO {
         this.approvedBy = approvedBy;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

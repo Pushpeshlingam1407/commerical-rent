@@ -14,13 +14,12 @@ public class DisputeDTO {
     private LocalDateTime createdAt;
     private LocalDateTime resolvedAt;
 
-    // Constructors
     public DisputeDTO() {
     }
 
     public DisputeDTO(Long id, Long leaseAgreementId, Long raisedById, String disputeReason,
-                      DisputeStatus disputeStatus, String resolutionRemark, Long resolvedById,
-                      LocalDateTime createdAt, LocalDateTime resolvedAt) {
+            DisputeStatus disputeStatus, String resolutionRemark, Long resolvedById,
+            LocalDateTime createdAt, LocalDateTime resolvedAt) {
         this.id = id;
         this.leaseAgreementId = leaseAgreementId;
         this.raisedById = raisedById;
@@ -32,7 +31,6 @@ public class DisputeDTO {
         this.resolvedAt = resolvedAt;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

@@ -14,7 +14,7 @@ public class PropertyDTO {
     private PropertyStatus availabilityStatus;
     private LocalDateTime createdAt;
 
-    // Constructors
+    
     public PropertyDTO() {
     }
 
@@ -31,7 +31,7 @@ public class PropertyDTO {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

@@ -11,7 +11,7 @@ public class UserDTO {
     private Role role;
     private LocalDateTime createdAt;
 
-    // Constructors
+    
     public UserDTO() {
     }
 
@@ -24,7 +24,7 @@ public class UserDTO {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }
