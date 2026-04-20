@@ -26,6 +26,10 @@ import {
   AdminLeases,
   AdminDisputes,
 } from "./pages/Dashboards";
+import { LeaseApprovals } from "./pages/manager/LeaseApprovals";
+import { LeaseAnalytics } from "./pages/manager/LeaseAnalytics";
+import { ActiveLeases } from "./pages/manager/ActiveLeases";
+import { LeaseDetails } from "./pages/manager/LeaseDetails";
 
 const theme = createTheme({
   typography: {
@@ -105,6 +109,10 @@ const AppRoutes = () => {
 
         <Route element={<ProtectedRoute allowedRoles={["LEASE_MANAGER"]} />}>
           <Route path="/manager/leases" element={<LeaseManagerDashboard />} />
+          <Route path="/manager/approvals" element={<LeaseApprovals />} />
+          <Route path="/manager/active" element={<ActiveLeases />} />
+          <Route path="/manager/analytics" element={<LeaseAnalytics />} />
+          <Route path="/manager/lease/:id" element={<LeaseDetails />} />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["DISPUTE_MANAGER"]} />}>
           <Route

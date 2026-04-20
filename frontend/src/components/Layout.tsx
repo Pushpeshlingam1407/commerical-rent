@@ -27,6 +27,7 @@ import {
   People,
   Logout,
   Person,
+  TrendingUp,
 } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 
@@ -88,7 +89,12 @@ export const Layout: React.FC = () => {
           { text: "My Payments", icon: <Payment />, path: "/tenant/payments" },
         ];
       case "LEASE_MANAGER":
-        return [{ text: "Lease Approvals", icon: <Description />, path: "/" }];
+        return [
+          { text: "Dashboard", icon: <Dashboard />, path: "/manager/leases" },
+          { text: "Lease Approvals", icon: <Description />, path: "/manager/approvals" },
+          { text: "Active Leases", icon: <HomeWork />, path: "/manager/active" },
+          { text: "Analytics", icon: <TrendingUp />, path: "/manager/analytics" },
+        ];
       case "DISPUTE_MANAGER":
         return [{ text: "Disputes", icon: <Gavel />, path: "/" }];
       default:
@@ -108,12 +114,6 @@ export const Layout: React.FC = () => {
             Commercial Leasing Platform
           </Typography>
         </Box>
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 700, color: "var(--primary)" }}
-        >
-          RentFlow
-        </Typography>
       </Toolbar>
       <Divider />
       <List sx={{ px: 2, flexGrow: 1 }}>
