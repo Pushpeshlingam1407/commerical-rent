@@ -1,17 +1,32 @@
 package com.example.commerical_rent.dtos;
 
-import com.example.commerical_rent.enums.PaymentStatus;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.example.commerical_rent.enums.PaymentStatus;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class RentPaymentDTO {
     private Long id;
-    private Long leaseAgreementId; // Reference to LeaseAgreement ID
+    
+    @NotNull(message = "Lease Agreement ID is required")
+    private Long leaseAgreementId;
+    
+    @NotNull(message = "Amount is required")
+    @Positive(message = "Amount must be positive")
     private BigDecimal amount;
+    
+    @NotNull(message = "Payment month is required")
     private LocalDate paymentMonth;
+    
     private LocalDate paymentDate;
+    
+    @NotNull(message = "Payment status is required")
     private PaymentStatus paymentStatus;
+    
     private BigDecimal penaltyAmount;
     private String referenceId;
     private LocalDateTime createdAt;

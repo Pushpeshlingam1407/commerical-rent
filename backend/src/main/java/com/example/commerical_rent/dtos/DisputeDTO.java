@@ -1,16 +1,29 @@
 package com.example.commerical_rent.dtos;
 
-import com.example.commerical_rent.enums.DisputeStatus;
 import java.time.LocalDateTime;
+
+import com.example.commerical_rent.enums.DisputeStatus;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class DisputeDTO {
     private Long id;
-    private Long leaseAgreementId; // Reference to LeaseAgreement ID
-    private Long raisedById; // Reference to User ID
+    
+    @NotNull(message = "Lease Agreement ID is required")
+    private Long leaseAgreementId;
+    
+    @NotNull(message = "Raised By ID is required")
+    private Long raisedById;
+    
+    @NotBlank(message = "Dispute reason is required")
     private String disputeReason;
+    
+    @NotNull(message = "Dispute status is required")
     private DisputeStatus disputeStatus;
+    
     private String resolutionRemark;
-    private Long resolvedById; // Reference to User ID
+    private Long resolvedById;
     private LocalDateTime createdAt;
     private LocalDateTime resolvedAt;
 
