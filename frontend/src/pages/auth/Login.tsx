@@ -17,6 +17,13 @@ import { useAuth } from "../../context/AuthContext";
 import api from "../../utils/api";
 
 const schema = yup.object().shape({
+  email: yup.string()
+    .email('Please enter a valid email address')
+    .required('Email is required')
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format'),
+  password: yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
   email: yup.string().email("Invalid email").required("Email is required"),
 });
 
@@ -38,6 +45,15 @@ export const Login: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
+      const response = await api.post('/auth/login', data);
+      const { token, user } = response.data;
+      
+      login(token, user);
+      toast.success('Login successful! Welcome back.');
+      navigate('/');
+    } catch (err: any) {
+      const errorMsg = err.response?.data?.error || 'Invalid email or password. Please try again.';
+      toast.error(errorMsg);
       // The backend has no password field or /auth/login endpoint.
       // We fetch all users and find the one matching the given email.
       const res = await api.get("/users");
@@ -71,6 +87,28 @@ export const Login: React.FC = () => {
   };
 
   return (
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'var(--background)' }}>
+      <Paper elevation={0} className="glass-panel hover-lift fade-in" sx={{ p: 5, maxWidth: 450, width: '100%', borderRadius: 'var(--radius-xl)' }}>
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{
+              fontSize: '3rem',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              🏢
+            </Box>
+          </Box>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: 'var(--primary)', mb: 0.5 }}>
+            RentFlow
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+            Commercial Property Leasing Made Easy
+          </Typography>
+          <Typography variant="h4" sx={{ fontWeight: 700, color: 'var(--primary)', mb: 1 }}>
     <Box
       sx={{
         minHeight: "100vh",

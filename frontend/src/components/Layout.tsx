@@ -99,6 +99,15 @@ export const Layout: React.FC = () => {
   const drawer = (
     <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Toolbar sx={{ my: 2 }}>
+        <Box>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: 1 }}>
+            <span style={{ fontSize: '1.5rem' }}>🏢</span>
+            RentFlow
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            Commercial Leasing Platform
+          </Typography>
+        </Box>
         <Typography
           variant="h5"
           sx={{ fontWeight: 700, color: "var(--primary)" }}
