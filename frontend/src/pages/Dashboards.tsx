@@ -1,5 +1,10 @@
 import React from 'react';
 import { Box, Typography, Paper } from '@mui/material';
+import { OwnerDashboard } from './owner/OwnerDashboard';
+import { OwnerProperties } from './owner/OwnerProperties';
+import { TenantDashboard } from './tenant/TenantDashboard';
+import { TenantBrowse } from './tenant/TenantBrowse';
+import { TenantPayments } from './tenant/TenantPayments';
 
 const PlaceholderDashboard: React.FC<{ title: string; desc: string }> = ({ title, desc }) => (
   <Box className="fade-in">
@@ -17,15 +22,11 @@ const PlaceholderDashboard: React.FC<{ title: string; desc: string }> = ({ title
   </Box>
 );
 
-export const OwnerDashboard = () => <PlaceholderDashboard title="Owner Dashboard" desc="Manage your commercial properties." />;
-export const OwnerProperties = () => <PlaceholderDashboard title="My Properties" desc="View and add new properties." />;
+// Export new components
+export { OwnerDashboard, OwnerProperties, TenantDashboard, TenantBrowse, TenantPayments };
 
-export const TenantDashboard = () => <PlaceholderDashboard title="Tenant Dashboard" desc="Overview of your leases and rent payments." />;
-export const TenantBrowse = () => <PlaceholderDashboard title="Browse Properties" desc="Find available commercial spaces." />;
-export const TenantPayments = () => <PlaceholderDashboard title="My Payments" desc="View payment history and pay rent." />;
-
+// Export placeholder components
 export const LeaseManagerDashboard = () => <PlaceholderDashboard title="Lease Approvals" desc="Review and approve lease requests." />;
 export const DisputeManagerDashboard = () => <PlaceholderDashboard title="Dispute Resolution" desc="Manage and resolve tenant/owner disputes." />;
-
 export const AdminLeases = () => <PlaceholderDashboard title="All Leases" desc="System-wide lease agreements." />;
 export const AdminDisputes = () => <PlaceholderDashboard title="All Disputes" desc="System-wide disputes." />;

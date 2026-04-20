@@ -9,8 +9,13 @@ import { useAuth } from '../../context/AuthContext';
 import api from '../../utils/api';
 
 const schema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().required('Password is required'),
+  email: yup.string()
+    .email('Please enter a valid email address')
+    .required('Email is required')
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format'),
+  password: yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
 });
 
 type FormData = yup.InferType<typeof schema>;
@@ -27,24 +32,15 @@ export const Login: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
-      // Adjusted based on typical auth implementation
       const response = await api.post('/auth/login', data);
+      const { token, user } = response.data;
       
-      // Assume response.data returns { token: string, user: User }
-      // Alternatively if response is just token string and we decode it:
-      const token = response.data.token || response.data;
-      const user = response.data.user || {
-        id: 1, 
-        name: data.email.split('@')[0],
-        email: data.email,
-        role: response.data.role || 'TENANT' // Default mock if backend missing
-      };
-
       login(token, user);
-      toast.success('Login successful!');
+      toast.success('Login successful! Welcome back.');
       navigate('/');
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      const errorMsg = err.response?.data?.error || 'Invalid email or password. Please try again.';
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -54,6 +50,24 @@ export const Login: React.FC = () => {
     <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'var(--background)' }}>
       <Paper elevation={0} className="glass-panel hover-lift fade-in" sx={{ p: 5, maxWidth: 450, width: '100%', borderRadius: 'var(--radius-xl)' }}>
         <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{
+              fontSize: '3rem',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              🏢
+            </Box>
+          </Box>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: 'var(--primary)', mb: 0.5 }}>
+            RentFlow
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+            Commercial Property Leasing Made Easy
+          </Typography>
           <Typography variant="h4" sx={{ fontWeight: 700, color: 'var(--primary)', mb: 1 }}>
             Welcome Back
           </Typography>
