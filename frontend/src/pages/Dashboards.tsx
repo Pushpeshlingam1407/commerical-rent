@@ -30,3 +30,12 @@ export const LeaseManagerDashboard = () => <PlaceholderDashboard title="Lease Ap
 export const DisputeManagerDashboard = () => <PlaceholderDashboard title="Dispute Resolution" desc="Manage and resolve tenant/owner disputes." />;
 export const AdminLeases = () => <PlaceholderDashboard title="All Leases" desc="System-wide lease agreements." />;
 export const AdminDisputes = () => <PlaceholderDashboard title="All Disputes" desc="System-wide disputes." />;
+export { OwnerDashboard } from './owner/OwnerDashboard';
+export { OwnerProperties } from './owner/OwnerProperties';
+export { TenantDashboard } from './tenant/TenantDashboard';
+export { TenantBrowse } from './tenant/TenantBrowse';
+export { TenantPayments } from './tenant/TenantPayments';
+export { LeaseManagerDashboard } from './manager/LeaseManagerDashboard';
+export { DisputeManagerDashboard } from './manager/DisputeManagerDashboard';
+export { AdminLeases } from './admin/AdminLeases';
+export { AdminDisputes } from './admin/AdminDisputes';

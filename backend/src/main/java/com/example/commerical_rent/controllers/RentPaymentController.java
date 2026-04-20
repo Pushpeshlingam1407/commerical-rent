@@ -64,7 +64,8 @@ public class RentPaymentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateRentPayment(@PathVariable Long id, @Valid @RequestBody RentPaymentDTO rentPaymentDTO) {
+    public ResponseEntity<?> updateRentPayment(@PathVariable Long id,
+            @Valid @RequestBody RentPaymentDTO rentPaymentDTO) {
         try {
             Optional<RentPayment> updatedRentPayment = rentPaymentService.updateRentPayment(id, rentPaymentDTO);
             return updatedRentPayment.map(payment -> ResponseEntity.ok((Object) payment))

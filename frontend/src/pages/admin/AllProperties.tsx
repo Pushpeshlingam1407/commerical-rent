@@ -1,8 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, CircularProgress } from '@mui/material';
-import { StatusBadge } from '../../components/StatusBadge';
-import api from '../../utils/api';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  CircularProgress,
+} from "@mui/material";
+import { StatusBadge } from "../../components/StatusBadge";
+import api from "../../utils/api";
+import { toast } from "react-toastify";
 
 export const AllProperties: React.FC = () => {
   const [properties, setProperties] = useState<any[]>([]);
@@ -11,10 +22,10 @@ export const AllProperties: React.FC = () => {
   useEffect(() => {
     const fetchProps = async () => {
       try {
-        const res = await api.get('/properties');
+        const res = await api.get("/properties");
         setProperties(res.data);
       } catch (error) {
-        toast.error('Failed to fetch properties');
+        toast.error("Failed to fetch properties");
       } finally {
         setLoading(false);
       }
@@ -24,22 +35,32 @@ export const AllProperties: React.FC = () => {
 
   return (
     <Box className="fade-in">
-      <Typography variant="h4" sx={{ fontWeight: 700, color: 'var(--primary)', mb: 1 }}>
+      <Typography
+        variant="h4"
+        sx={{ fontWeight: 700, color: "var(--primary)", mb: 1 }}
+      >
         All Properties
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
         View all listed commercial properties across the system.
       </Typography>
 
-      <Paper elevation={0} sx={{ border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+      <Paper
+        elevation={0}
+        sx={{
+          border: "1px solid var(--border)",
+          borderRadius: "var(--radius-lg)",
+          overflow: "hidden",
+        }}
+      >
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", p: 5 }}>
             <CircularProgress />
           </Box>
         ) : (
           <TableContainer>
             <Table>
-              <TableHead sx={{ bgcolor: 'var(--background)' }}>
+              <TableHead sx={{ bgcolor: "var(--background)" }}>
                 <TableRow>
                   <TableCell sx={{ fontWeight: 600 }}>ID</TableCell>
                   <TableCell sx={{ fontWeight: 600 }}>Name</TableCell>
@@ -53,7 +74,9 @@ export const AllProperties: React.FC = () => {
                 {properties.map((prop) => (
                   <TableRow key={prop.id} hover>
                     <TableCell>{prop.id}</TableCell>
-                    <TableCell sx={{ fontWeight: 500 }}>{prop.propertyName}</TableCell>
+                    <TableCell sx={{ fontWeight: 500 }}>
+                      {prop.propertyName}
+                    </TableCell>
                     <TableCell>{prop.location}</TableCell>
                     <TableCell>{prop.propertyType}</TableCell>
                     <TableCell>${prop.monthlyRentAmount}</TableCell>

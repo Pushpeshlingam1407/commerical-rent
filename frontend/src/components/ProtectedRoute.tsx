@@ -1,13 +1,16 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth, type Role } from '../context/AuthContext';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth, type Role } from "../context/AuthContext";
 
 interface ProtectedRouteProps {
   allowedRoles?: Role[];
   children?: React.ReactNode;
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children }) => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  allowedRoles,
+  children,
+}) => {
   const { isAuthenticated, user } = useAuth();
 
   if (!isAuthenticated || !user) {
@@ -15,7 +18,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, ch
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    // Redirect to a default dashboard if they don't have access
     return <Navigate to="/" replace />;
   }
 

@@ -9,19 +9,19 @@ import jakarta.validation.constraints.NotNull;
 
 public class DisputeDTO {
     private Long id;
-    
+
     @NotNull(message = "Lease Agreement ID is required")
     private Long leaseAgreementId;
-    
+
     @NotNull(message = "Raised By ID is required")
     private Long raisedById;
-    
+
     @NotBlank(message = "Dispute reason is required")
     private String disputeReason;
-    
+
     @NotNull(message = "Dispute status is required")
     private DisputeStatus disputeStatus;
-    
+
     private String resolutionRemark;
     private Long resolvedById;
     private LocalDateTime createdAt;

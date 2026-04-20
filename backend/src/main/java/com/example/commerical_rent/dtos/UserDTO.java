@@ -10,23 +10,22 @@ import jakarta.validation.constraints.NotNull;
 
 public class UserDTO {
     private Long id;
-    
+
     @NotBlank(message = "Name is required")
     private String name;
-    
+
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
-    
+
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
-    
+
     @NotNull(message = "Role is required")
     private Role role;
-    
+
     private LocalDateTime createdAt;
 
-    
     public UserDTO() {
     }
 
@@ -39,7 +38,6 @@ public class UserDTO {
         this.createdAt = createdAt;
     }
 
-    
     public Long getId() {
         return id;
     }

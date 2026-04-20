@@ -11,33 +11,32 @@ import jakarta.validation.constraints.Positive;
 
 public class RentPaymentDTO {
     private Long id;
-    
+
     @NotNull(message = "Lease Agreement ID is required")
     private Long leaseAgreementId;
-    
+
     @NotNull(message = "Amount is required")
     @Positive(message = "Amount must be positive")
     private BigDecimal amount;
-    
+
     @NotNull(message = "Payment month is required")
     private LocalDate paymentMonth;
-    
+
     private LocalDate paymentDate;
-    
+
     @NotNull(message = "Payment status is required")
     private PaymentStatus paymentStatus;
-    
+
     private BigDecimal penaltyAmount;
     private String referenceId;
     private LocalDateTime createdAt;
 
-    
     public RentPaymentDTO() {
     }
 
     public RentPaymentDTO(Long id, Long leaseAgreementId, BigDecimal amount, LocalDate paymentMonth,
-                          LocalDate paymentDate, PaymentStatus paymentStatus, BigDecimal penaltyAmount,
-                          String referenceId, LocalDateTime createdAt) {
+            LocalDate paymentDate, PaymentStatus paymentStatus, BigDecimal penaltyAmount,
+            String referenceId, LocalDateTime createdAt) {
         this.id = id;
         this.leaseAgreementId = leaseAgreementId;
         this.amount = amount;
@@ -49,7 +48,6 @@ public class RentPaymentDTO {
         this.createdAt = createdAt;
     }
 
-    
     public Long getId() {
         return id;
     }

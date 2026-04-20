@@ -11,35 +11,34 @@ import jakarta.validation.constraints.Positive;
 
 public class PropertyDTO {
     private Long id;
-    
+
     @NotBlank(message = "Property name is required")
     private String propertyName;
-    
+
     @NotBlank(message = "Location is required")
     private String location;
-    
+
     @NotBlank(message = "Property type is required")
     private String propertyType;
-    
+
     @NotNull(message = "Monthly rent amount is required")
     @Positive(message = "Monthly rent amount must be positive")
     private BigDecimal monthlyRentAmount;
-    
+
     @NotNull(message = "Owner ID is required")
     private Long ownerId;
-    
+
     @NotNull(message = "Availability status is required")
     private PropertyStatus availabilityStatus;
-    
+
     private LocalDateTime createdAt;
 
-    
     public PropertyDTO() {
     }
 
     public PropertyDTO(Long id, String propertyName, String location, String propertyType,
-                       BigDecimal monthlyRentAmount, Long ownerId, PropertyStatus availabilityStatus,
-                       LocalDateTime createdAt) {
+            BigDecimal monthlyRentAmount, Long ownerId, PropertyStatus availabilityStatus,
+            LocalDateTime createdAt) {
         this.id = id;
         this.propertyName = propertyName;
         this.location = location;
@@ -50,7 +49,6 @@ public class PropertyDTO {
         this.createdAt = createdAt;
     }
 
-    
     public Long getId() {
         return id;
     }
